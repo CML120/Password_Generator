@@ -6,13 +6,10 @@ var numbers = "0123456789";
 var useableCharacters = "";
 
 // special characters copy/pasted from https://owasp.org/www-community/password-special-characters
-//issue with including quote into character > will research later
-var specialCharacters = "!#$%&'()*+,-./:;<=>?@[\]^_`{|}~";
-
+var specialCharacters = "!#$%&'()*+,-./:;<=>?@[\]^_`{|}~\"";
 
 //function to generate the password based on user input
 function generatePassword() {
-
 
   //ask for user to input desired password length
   var passwordLength = prompt("Choose the length of your password 8-128 characters");
@@ -40,41 +37,72 @@ function generatePassword() {
 
   }
 
-
-  //  ***To Do***   add a confirmation for all selected choices before continuing
-
-  // add strings/numbers/characters into a useable string to pull from
+  // add a confirmation for all selected choices before continuing
+  var confirmationText = "You have chosen to create a password that uses the following: ";
   if (lowercaseLetter) {
-    useableCharacters += lowercaseLetters;
+    confirmationText = confirmationText + " lower case letters, ";
   }
 
   if (uppercaseLetter) {
-    useableCharacters += uppercaseLetters;
+    confirmationText = confirmationText + " upper case letters, ";
   }
 
   if (numericCharacter) {
-    useableCharacters += numbers;
+    confirmationText = confirmationText + " numbers, ";
   }
 
   if (specialCharacter) {
-    useableCharacters += specialCharacters;
+    confirmationText = confirmationText + " special characters,";
   }
 
+  confirmationText = confirmationText.slice(0, -1) + " and will be " + passwordLength + " characters long.";
+  var confirmChoice = confirm(confirmationText);
 
+  if (confirmChoice) {
+    // add strings/numbers/characters into a useable string to pull from
+    if (lowercaseLetter) {
+      useableCharacters += lowercaseLetters;
+    }
 
-  // set for loop to create password based on length
-  //use random math function to choose from the string of avaible characters in useableCharacters
+    if (uppercaseLetter) {
+      useableCharacters += uppercaseLetters;
+    }
 
-  var randomPassword = "";
+    if (numericCharacter) {
+      useableCharacters += numbers;
+    }
 
-  for (var i = 0; i < passwordLength; i++) {
-    randomPassword += useableCharacters.charAt(Math.floor(Math.random() * useableCharacters.length));
+    if (specialCharacter) {
+      useableCharacters += specialCharacters;
+    }
+    // set for loop to create password based on length
+    //use random math function to choose from the string of avaible characters in useableCharacters
+
+    var randomPassword = "";
+
+    for (var i = 0; i < passwordLength; i++) {
+      randomPassword += useableCharacters.charAt(Math.floor(Math.random() * useableCharacters.length));
+    }
+
+    // clear out useable characters, return password string
+    // useableCharacters needs to be cleared or it will keep its current contents for the next password generation
+    useableCharacters = "";
+    confirmationText = "";
+    return randomPassword;
   }
+  else {
 
-  // clear out useable characters, return password string
-  // useableCharacters needs to be cleared or it will keep its current contents for the next password generation
-  useableCharacters = "";
-  return randomPassword;
+    //clear all values for restart
+    var lowercaseLetter = false;
+    var uppercaseLetter = false;
+    var numericCharacter = false;
+    var specialCharacter = false;
+    useableCharacters = "";
+    confirmationText = "";
+    passwordLength = 0;
+    password = "";
+    passwordText.value = "";
+  }
 
 }
 
@@ -88,10 +116,7 @@ function writePassword() {
 
   passwordText.value = password;
 
-
 }
 
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
-
-// console.log(password.value);
