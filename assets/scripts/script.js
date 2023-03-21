@@ -1,6 +1,4 @@
-// Assignment code here
-
-
+//create variables to hold strings and numbers
 //set available characters
 var lowercaseLetters = "abcdefghijklmnopqrstuvwxyz";
 var uppercaseLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -11,8 +9,12 @@ var useableCharacters = "";
 //issue with including quote into character > will research later
 var specialCharacters = "!#$%&'()*+,-./:;<=>?@[\]^_`{|}~";
 
+
+//function to generate the password based on user input
 function generatePassword() {
 
+
+  //ask for user to input desired password length
   var passwordLength = prompt("Choose the length of your password 8-128 characters");
 
   // check for a valid password length
@@ -22,11 +24,13 @@ function generatePassword() {
   }
 
 
+  //ask for password characters criteria   lower/upper case, numbers, & special characters
   var lowercaseLetter = confirm("Use lower case letters?");
   var uppercaseLetter = confirm("Use upper case letters?");
   var numericCharacter = confirm("Use numbers?");
   var specialCharacter = confirm("Use special characters?");
 
+  // if none of the criteria is selected, keep asking until at least 1 is chosen
   while (lowercaseLetter === false && uppercaseLetter === false && numericCharacter === false && specialCharacter === false) {
     alert("Please select at least one password criteria")
     var lowercaseLetter = confirm("Use lower case letters?");
@@ -37,6 +41,9 @@ function generatePassword() {
   }
 
 
+  //  ***To Do***   add a confirmation for all selected choices before continuing
+
+  // add strings/numbers/characters into a useable string to pull from
   if (lowercaseLetter) {
     useableCharacters += lowercaseLetters;
   }
@@ -56,6 +63,7 @@ function generatePassword() {
 
 
   // set for loop to create password based on length
+  //use random math function to choose from the string of avaible characters in useableCharacters
 
   var randomPassword = "";
 
@@ -64,6 +72,7 @@ function generatePassword() {
   }
 
   // clear out useable characters, return password string
+  // useableCharacters needs to be cleared or it will keep its current contents for the next password generation
   useableCharacters = "";
   return randomPassword;
 
@@ -85,4 +94,4 @@ function writePassword() {
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
 
-console.log(password.value);
+// console.log(password.value);
