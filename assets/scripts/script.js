@@ -63,6 +63,8 @@ function generatePassword() {
     randomPassword += useableCharacters.charAt(Math.floor(Math.random() * useableCharacters.length));
   }
 
+  // clear out useable characters, return password string
+  useableCharacters = "";
   return randomPassword;
 
 }
