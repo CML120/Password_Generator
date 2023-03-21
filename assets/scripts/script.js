@@ -5,8 +5,9 @@
 var lowercaseLetters = "abcdefghijklmnopqrstuvwxyz";
 var uppercaseLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 var numbers = "0123456789";
+var useableCharacters = "";
 
-// copied from https://owasp.org/www-community/password-special-characters
+// special characters copy/pasted from https://owasp.org/www-community/password-special-characters
 //issue with including quote into character > will research later
 var specialCharacters = "!#$%&'()*+,-./:;<=>?@[\]^_`{|}~";
 
@@ -36,11 +37,33 @@ function generatePassword() {
   }
 
 
+  if (lowercaseLetter) {
+    useableCharacters += lowercaseLetters;
+  }
+
+  if (uppercaseLetter) {
+    useableCharacters += uppercaseLetters;
+  }
+
+  if (numericCharacter) {
+    useableCharacters += numbers;
+  }
+
+  if (specialCharacter) {
+    useableCharacters += specialCharacters;
+  }
 
 
 
   // set for loop to create password based on length
 
+  var randomPassword = "";
+
+  for (var i = 0; i < passwordLength; i++) {
+    randomPassword += useableCharacters.charAt(Math.floor(Math.random() * useableCharacters.length));
+  }
+
+  return randomPassword;
 
 }
 
@@ -60,4 +83,4 @@ function writePassword() {
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
 
-console.log(password);
+console.log(password.value);
