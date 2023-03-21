@@ -10,20 +10,32 @@ var numbers = "0123456789";
 //issue with including quote into character > will research later
 var specialCharacters = "!#$%&'()*+,-./:;<=>?@[\]^_`{|}~";
 
-function generatePassword(){
+function generatePassword() {
 
   var passwordLength = prompt("Choose the length of your password 8-128 characters");
+
+  // check for a valid password length
+  while (passwordLength < 8 || passwordLength > 128) {
+    alert("Password length must be between 8 to 128 characters.");
+    var passwordLength = prompt("Please choose a password length between 8 to 128 characters.");
+  }
+
+
   var lowercaseLetter = confirm("Use lower case letters?");
   var uppercaseLetter = confirm("Use upper case letters?");
   var numericCharacter = confirm("Use numbers?");
   var specialCharacter = confirm("Use special characters?");
 
+  while (lowercaseLetter === false && uppercaseLetter === false && numericCharacter === false && specialCharacter === false) {
+    alert("Please select at least one password criteria")
+    var lowercaseLetter = confirm("Use lower case letters?");
+    var uppercaseLetter = confirm("Use upper case letters?");
+    var numericCharacter = confirm("Use numbers?");
+    var specialCharacter = confirm("Use special characters?");
 
-  // check password length
+  }
 
 
-  // all other selections set as boolean
-  //set up if statements for each character/letter choice
 
 
 
@@ -41,8 +53,8 @@ function writePassword() {
   var passwordText = document.querySelector("#password");
 
   passwordText.value = password;
-  
-  
+
+
 }
 
 // Add event listener to generate button
